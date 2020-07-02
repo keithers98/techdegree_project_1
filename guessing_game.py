@@ -43,10 +43,10 @@ round_count = 1
 def looser():
         print("You got it! It took you {} tries".format(player_score))
 def winner():
-        if round_count = 1:
+        if round_count <=1:
             looser()
         else:
-            print("You beat the HIGHSCORE! It took you {} round.".format(round_count))
+            print("You beat the HIGHSCORE! It took you {} rounds.".format(round_count))
 
 def referee(score_in_question, high_score):
     if score_in_question > high_score:
