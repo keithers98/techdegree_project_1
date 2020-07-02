@@ -1,12 +1,9 @@
 import random
 print("""
     ------------------------------------
-    Welcome To The Number Guessing Game! 
-    ------------------------------------ 
+    Welcome To The Number Guessing Game!
+    ------------------------------------
                                         """)
-#one_more_round = "y"
-
-#while one_more_round.lower() != "n":
 
 def start_game():
     guess_count = 0
@@ -17,15 +14,15 @@ def start_game():
     a_guess = question()
     guess_count = raise_count(guess_count)
     random_num = random.randint(1,10)
-    
+
     while a_guess != random_num:
-        
+
         if  a_guess > 10:
             print("Oops! Try Again.")
             guess_count = raise_count(guess_count)
             a_guess = question()
             continue
-        if a_guess < random_num: 
+        if a_guess < random_num:
             print("It's higher!")
             guess_count = raise_count(guess_count)
             a_guess = question()
@@ -36,15 +33,38 @@ def start_game():
         else:
             break
     return guess_count
-highscore = start_game()
 
-print("You got it! It took you {} tries".format(highscore))
-next_round = input("Would you like to play again?  (Y)es or (N)o   ")
+player_score = start_game()
 
-if next_round.lower() != "n":
-    print("The HIGHSCORE is {}, good luck!".format(highscore))
-    start_game()
+high_score = 0
+
+round_count = 1
+
+def looser():
+        print("You got it! It took you {} tries".format(player_score))
+def winner():
+        if round_count = 1:
+            looser()
+        else:
+            print("You beat the HIGHSCORE! It took you {} round.".format(round_count))
+
+def referee(score_in_question, high_score):
+    if score_in_question > high_score:
+        high_score = player_score
+        return winner()
+    elif score_in_question < high_score:
+        return looser()
+
+
+next_round = "y"
+while next_round.lower() != "n":
+    referee(player_score, high_score)
+    next_round = input("Would you like to play again?  (Y)es or (N)o   ")
+    if next_round.lower() != "n":
+        round_count = round_count + 1
+        print("The HIGHSCORE is {}, good luck!".format(high_score))
+        start_game()
+    else:
+        break
 else:
     print("GAMEOVER")
-
-    
