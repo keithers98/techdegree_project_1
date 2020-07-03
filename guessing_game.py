@@ -1,11 +1,37 @@
 import random
+import time
 print("""
-    ------------------------------------
+    -~~$$---##~~~++---##~~~$$---##~~~++-
     Welcome To The Number Guessing Game!
-    ------------------------------------
+    -~~$$---##~~~++---##~~~$$---##~~~++-
                                         """)
+def looser():
+    print("You got it! It took you {} tries.".format(player_score))
+def winner():
+    if round_count <= 1 :
+        looser()
+        #print('looser helper')
+    else:
+        print("You beat the HIGHSCORE! It took you {} tries.".format(player_score))
 
-def start_game():
+def referee(score_in_question, score_to_beat):
+
+    if score_in_question < score_to_beat:
+        score_to_beat = score_in_question
+        winner()
+        #print("winner helper")
+        return score_to_beat
+    elif score_in_question > score_to_beat:
+        looser()
+        #print("looser helper")
+        return score_to_beat
+    else:
+        return score_to_beatS
+
+def start_game(current_score, count):
+    if count != 1:
+        print("The HIGHSCORE is {}, good luck!".format(current_score))
+
     guess_count = 0
     def question():
         return int(input("Pick a number between 1 and 10  "))
@@ -34,37 +60,24 @@ def start_game():
             break
     return guess_count
 
-player_score = start_game()
-
-high_score = 0
-
+#high_score = 10
 round_count = 1
-
-def looser():
-        print("You got it! It took you {} tries".format(player_score))
-def winner():
-        if round_count <=1:
-            looser()
-        else:
-            print("You beat the HIGHSCORE! It took you {} rounds.".format(round_count))
-
-def referee(score_in_question, high_score):
-    if score_in_question > high_score:
-        high_score = player_score
-        return winner()
-    elif score_in_question < high_score:
-        return looser()
-
-
-next_round = "y"
-while next_round.lower() != "n":
-    referee(player_score, high_score)
+player_score = 10
+#there is a bug where if the highscore is 10 and the player score is 10 the highscore is then set to "NONE"
+while True:
+    high_score = player_score
+    player_score = start_game(high_score, round_count)
+    player_score = referee(player_score, high_score)
     next_round = input("Would you like to play again?  (Y)es or (N)o   ")
     if next_round.lower() != "n":
         round_count = round_count + 1
-        print("The HIGHSCORE is {}, good luck!".format(high_score))
-        start_game()
+        continue
+
     else:
+        end_message_list = ["Your HIGHSCORE is {}".format(high_score), "You played {} rounds!".format(round_count), "Please enter a quarter into your computer.","Waiting...", "Waiting...", "Just kidding!", "Thank you for playing."]
+        for message in end_message_list:
+            print(message)
+            time.sleep(1)
         break
-else:
-    print("GAMEOVER")
+
+print("$$$$$$$$     GAMEOVER     $$$$$$$$")
