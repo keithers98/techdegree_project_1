@@ -83,12 +83,10 @@ while True:
         round_count = round_count + 1
         continue
     else:
-        end_message_list = ["Your HIGHSCORE is {}".format(high_score), "You played {} rounds!".format(round_count), "Please enter a quarter into your computer.","Waiting...", "Waiting...", "Just kidding!", "Thank you for playing."]
+        end_message_list = ["Your HIGHSCORE is {}!".format(high_score), "You played {} rounds!".format(round_count), "Please enter a quarter into your computer.","Waiting...", "Waiting...", "Just kidding!", "Thank you for playing."]
         for message in end_message_list:
             print(message)
             time.sleep(1)
         break
 
 print("$$$$$$$$     GAMEOVER     $$$$$$$$")
-
-    
