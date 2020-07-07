@@ -1,9 +1,9 @@
 import random
 import time
 print("""
-    -~~$$---##~~~++---##~~~$$---##~~~++-
-    Welcome To The Number Guessing Game!
-    -~~$$---##~~~++---##~~~$$---##~~~++-
+-~~$$---##~~~++---##~~~$$---##~~~++-
+Welcome To The Number Guessing Game!
+-~~$$---##~~~++---##~~~$$---##~~~++-
                                         """)
 def looser():
     print("You got it! It took you {} tries.".format(player_score))
@@ -26,53 +26,62 @@ def referee(score_in_question, score_to_beat):
         #print("looser helper")
         return score_to_beat
     else:
-        return score_to_beatS
+        return score_to_beat
 
 def start_game(current_score, count):
     if count != 1:
         print("The HIGHSCORE is {}, good luck!".format(current_score))
 
-    guess_count = 0
     def question():
-        return int(input("Pick a number between 1 and 10  "))
+        return input("Pick a number between 1 and 10  ")
+
     def raise_count(a_count):
         return a_count + 1
-    a_guess = question()
-    guess_count = raise_count(guess_count)
+
+    guess_count = 0
     random_num = random.randint(1,10)
 
-    while a_guess != random_num:
-
-        if  a_guess > 10:
-            print("Oops! Try Again.")
-            guess_count = raise_count(guess_count)
-            a_guess = question()
-            continue
-        if a_guess < random_num:
-            print("It's higher!")
-            guess_count = raise_count(guess_count)
-            a_guess = question()
-        elif a_guess > random_num:
-            print("It's lower!")
-            guess_count = raise_count(guess_count)
-            a_guess = question()
+    while True:
+        a_guess = question()
+        a_valid_response = [1,2,3,4,5,6,7,8,9,10]
+        guess_count = raise_count(guess_count)
+        try:
+            a_guess = int(a_guess)
+            if a_guess != random_num:
+                if a_guess > 10 :
+                    print("Oops, invalid response. That number was too large.")
+                    continue
+                elif a_guess < 0:
+                    print("Oops, invalid response. That number was negative.")
+                    continue
+                elif a_guess < random_num:
+                    print("It's higher!")
+                    continue
+                elif a_guess > random_num:
+                    print("It's lower!")
+                    continue
+                else:
+                    break
+        except TypeError as ohno:
+            #print("Uh-oh, {}".format(ohno))
+            print("Uh-oh, something went wrong. Let's try again.")
+        except ValueError as uho:
+            print("Uh-oh, that wasn't a number. Lets try again.")
         else:
             break
     return guess_count
 
-#high_score = 10
 round_count = 1
 player_score = 10
-#there is a bug where if the highscore is 10 and the player score is 10 the highscore is then set to "NONE"
+high_score = player_score
+
 while True:
-    high_score = player_score
     player_score = start_game(high_score, round_count)
-    player_score = referee(player_score, high_score)
-    next_round = input("Would you like to play again?  (Y)es or (N)o   ")
+    high_score = referee(player_score, high_score)
+    next_round = input('Enter "n" to quit, or type anything else to play again!')
     if next_round.lower() != "n":
         round_count = round_count + 1
         continue
-
     else:
         end_message_list = ["Your HIGHSCORE is {}".format(high_score), "You played {} rounds!".format(round_count), "Please enter a quarter into your computer.","Waiting...", "Waiting...", "Just kidding!", "Thank you for playing."]
         for message in end_message_list:
@@ -81,3 +90,5 @@ while True:
         break
 
 print("$$$$$$$$     GAMEOVER     $$$$$$$$")
+
+    
