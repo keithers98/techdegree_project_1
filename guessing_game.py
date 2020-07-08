@@ -10,7 +10,6 @@ def looser():
 def winner():
     if round_count <= 1 :
         looser()
-        #print('looser helper')
     else:
         print("You beat the HIGHSCORE! It took you {} tries.".format(player_score))
 
@@ -19,13 +18,9 @@ def referee(score_in_question, score_to_beat):
     if score_in_question < score_to_beat:
         score_to_beat = score_in_question
         winner()
-        #print("winner helper")
-        return score_to_beat
-    elif score_in_question > score_to_beat:
-        looser()
-        #print("looser helper")
         return score_to_beat
     else:
+        looser()
         return score_to_beat
 
 def start_game(current_score, count):
@@ -89,4 +84,4 @@ while True:
             time.sleep(1)
         break
 
-print("$$$$$$$$     GAMEOVER     $$$$$$$$")
+print("$#$#$#$#$    GAMEOVER    $#$#$#$#$")
